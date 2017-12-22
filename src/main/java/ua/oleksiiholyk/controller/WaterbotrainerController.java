@@ -25,14 +25,7 @@ import static java.util.Optional.of;
 public class WaterbotrainerController {
     private static final Logger logger = LoggerFactory.getLogger(WaterbotrainerController.class);
 
-    /*    @Value("${messenger4j.appSecret}")
-        private String appSecret;
-        @Value("${messenger4j.verifyToken}")
-        private String verifyToken;
-        @Value("${messenger4j.pageAccessToken}")
-        private String pageAccessToken;*/
     private final Messenger messenger;
-
 
     @Autowired
     public WaterbotrainerController(
