@@ -61,8 +61,7 @@ public class EventHandlerActions {
                 messengerActions.sendTextMessage(senderId, "Hi " + userProfile.firstName() + "! I am your personal water trainer :-)");
                 String quickReplyText = "\u2611  Daily water reminders \n\u2611  Personalized AI recommendations \n\u2611  Number of cups of water drank this week \n\u2611  Tips about water drinking";
                 TextQuickReply quickReplyA = TextQuickReply.create("Let's start", "<POSTBACK_PAYLOAD>");
-                List<QuickReply> quickReplies = new ArrayList<>();
-                quickReplies.add(quickReplyA);
+                List<QuickReply> quickReplies = Collections.singletonList(quickReplyA);
                 messengerActions.sendTextMessageWithQuickReplies(senderId, quickReplyText, quickReplies);
                 break;
             case "changefrequency":

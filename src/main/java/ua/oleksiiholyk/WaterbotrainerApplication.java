@@ -40,9 +40,9 @@ public class WaterbotrainerApplication {
 		UrlCallToAction gotoVisitSpartans = UrlCallToAction.create("Visit Spartans", new URL("https://www.spartans.tech/"), of(WebviewHeightRatio.FULL), empty(), empty());
 		NestedCallToAction actionMore = NestedCallToAction.create("More", Arrays.asList(callReminderFrequency, gotoVisitSpartans));
 
-		PostbackCallToAction actionChatfuel = PostbackCallToAction.create("Create a bot with messenger4j", "POSTBACK_PAYLOAD");
+		UrlCallToAction actionMessenger4j = UrlCallToAction.create("Create a bot with messenger4j", new URL("https://github.com/messenger4j/messenger4j"), of(WebviewHeightRatio.FULL), empty(), empty());
 
-		PersistentMenu persistentMenu = PersistentMenu.create(false, of(Arrays.asList(actionStart, actionMore, actionChatfuel)), LocalizedPersistentMenu.create(SupportedLocale.zh_CN, false, empty()));
+		PersistentMenu persistentMenu = PersistentMenu.create(false, of(Arrays.asList(actionStart, actionMore, actionMessenger4j)), LocalizedPersistentMenu.create(SupportedLocale.zh_CN, false, empty()));
 
 		MessengerSettings messengerSettings = MessengerSettings.create(of(StartButton.create("Start")), empty(), of(persistentMenu), empty());
 		messenger = Messenger.create(pageAccessToken, appSecret, verifyToken);
