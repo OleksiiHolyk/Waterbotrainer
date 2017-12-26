@@ -9,6 +9,7 @@ import com.github.messenger4j.userprofile.UserProfile;
 import com.github.messenger4j.webhook.Event;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +61,8 @@ public class EventHandlerActions {
                 messengerActions.sendTextMessage(senderId, "Hi " + userProfile.firstName() + "! I am your personal water trainer :-)");
                 String quickReplyText = "\u2611  Daily water reminders \n\u2611  Personalized AI recommendations \n\u2611  Number of cups of water drank this week \n\u2611  Tips about water drinking";
                 TextQuickReply quickReplyA = TextQuickReply.create("Let's start", "<POSTBACK_PAYLOAD>");
-                List<QuickReply> quickReplies = Collections.singletonList(quickReplyA);
+                List<QuickReply> quickReplies = new ArrayList<>();
+                quickReplies.add(quickReplyA);
                 messengerActions.sendTextMessageWithQuickReplies(senderId, quickReplyText, quickReplies);
                 break;
             case "changefrequency":
