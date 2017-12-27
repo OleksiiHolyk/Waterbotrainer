@@ -60,8 +60,7 @@ public class Reminder {
 
 
     @Scheduled(fixedRate = 60000)
-    public void scheduleOnceMinute(String recipientId, String text) throws MessengerApiException, MessengerIOException {
+    public void scheduleOnceMinute(){
         logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()) );
-        messengerActions.sendTextMessage(recipientId,text);
     }
 }

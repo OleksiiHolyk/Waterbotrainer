@@ -7,6 +7,7 @@ import com.github.messenger4j.send.message.quickreply.QuickReply;
 import com.github.messenger4j.send.message.quickreply.TextQuickReply;
 import com.github.messenger4j.userprofile.UserProfile;
 import com.github.messenger4j.webhook.Event;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -155,11 +156,11 @@ public class EventHandlerActions {
 
             case "Once a minute":
                 remindersDone(senderId);
+                reminder.scheduleOnceMinute();
                 break;
 
             case "stop reminders":
                 remindersDone(senderId);
-                reminder.scheduleOnceMinute(senderId, "someText");
                 break;
 
             case "setfr":
