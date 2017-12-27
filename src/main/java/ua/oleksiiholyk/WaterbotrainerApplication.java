@@ -26,7 +26,6 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
 @SpringBootApplication
-@EnableScheduling
 public class WaterbotrainerApplication {
 
 	@Bean

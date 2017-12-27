@@ -22,12 +22,12 @@ import java.util.List;
 public class EventHandlerActions {
     private final Messenger messenger;
     private final MessengerActions messengerActions;
-//    private final Reminder reminder;
+    private final Reminder reminder;
 
     public EventHandlerActions(Messenger messenger, MessengerActions messengerActions, Reminder reminder) {
         this.messenger = messenger;
         this.messengerActions = messengerActions;
-//        this.reminder = reminder;
+        this.reminder = reminder;
     }
 
     public void textMessageEventHandler(Event event) {
@@ -152,6 +152,7 @@ public class EventHandlerActions {
 
             case "once a day":
                 remindersDone(senderId);
+                reminder.scheduleTaskWithCronExpression();
                 break;
 
             case "once a minute":

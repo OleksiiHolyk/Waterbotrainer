@@ -61,8 +61,13 @@ public class Reminder {
     }*/
 
 
-    @Scheduled(fixedRate = 60000)
+   /* @Scheduled(fixedRate = 6000)
     public void scheduleOnceMinute(){
         logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()) );
+    }*/
+
+    @Scheduled(cron = "0 * * * * ?")
+    public void scheduleTaskWithCronExpression() {
+        logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
     }
 }
