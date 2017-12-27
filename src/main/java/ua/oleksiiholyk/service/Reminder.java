@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -22,8 +21,11 @@ public class Reminder {
     private static final Logger logger = LoggerFactory.getLogger(Reminder.class);
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    MessengerActions messengerActions;
-    /*
+    public Reminder() {
+    }
+
+
+   /*
     second, minute, hour, day of month, month, day(s) of week
     "0 0 * * * *" = the top of every hour of every day.
     "10 * * * * *" = every ten seconds.
