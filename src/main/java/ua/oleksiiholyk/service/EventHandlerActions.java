@@ -154,9 +154,9 @@ public class EventHandlerActions {
                 remindersDone(senderId);
                 break;
 
-            case "Once a minute":
+            case "once a minute":
                 remindersDone(senderId);
-                reminder.scheduleOnceMinute();
+//                reminder.scheduleOnceMinute();
                 break;
 
             case "stop reminders":
