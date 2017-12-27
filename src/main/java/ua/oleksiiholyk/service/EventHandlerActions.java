@@ -21,10 +21,12 @@ import java.util.List;
 public class EventHandlerActions {
     private final Messenger messenger;
     private final MessengerActions messengerActions;
+    private final Reminder reminder;
 
-    public EventHandlerActions(Messenger messenger, MessengerActions messengerActions) {
+    public EventHandlerActions(Messenger messenger, MessengerActions messengerActions, Reminder reminder) {
         this.messenger = messenger;
         this.messengerActions = messengerActions;
+        this.reminder = reminder;
     }
 
     public void textMessageEventHandler(Event event) {
@@ -151,8 +153,13 @@ public class EventHandlerActions {
                 remindersDone(senderId);
                 break;
 
+            case "Once a minute":
+                remindersDone(senderId);
+                break;
+
             case "stop reminders":
                 remindersDone(senderId);
+                reminder.scheduleOnceMinute(senderId, "someText");
                 break;
 
             case "setfr":
@@ -187,6 +194,7 @@ public class EventHandlerActions {
             TextQuickReply quickReplyA = TextQuickReply.create("3 times a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyB = TextQuickReply.create("Twice a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyC = TextQuickReply.create("Once a day", "<POSTBACK_PAYLOAD>");
+            TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
 
             List<QuickReply> cupsQuickReplies = Arrays.asList(quickReplyA, quickReplyB, quickReplyC);
             messengerActions.sendTextMessageWithQuickReplies(senderId, quickReplyText, cupsQuickReplies);
