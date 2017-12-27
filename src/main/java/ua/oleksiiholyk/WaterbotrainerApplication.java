@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.net.MalformedURLException;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
+@Import({SchedulerConfig.class})
 @SpringBootApplication
 public class WaterbotrainerApplication {
 
