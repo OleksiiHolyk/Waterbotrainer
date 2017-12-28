@@ -133,17 +133,17 @@ public class EventHandlerActions {
                 break;
 
             case "1-2 cups":
-                String cup1ImgUrl = "https://scontent-frt3-2.xx.fbcdn.net/v/t34.0-0/p280x280/17198292_263277337448448_1721647584_n.jpg?_nc_ad=z-m&_nc_cid=0&oh=93971f19c2495a4ce9c152b1355e9921&oe=5A4433A6";
+                String cup1ImgUrl = "https://scontent-arn2-1.xx.fbcdn.net/v/t34.0-0/p280x280/17198292_263277337448448_1721647584_n.jpg?_nc_ad=z-m&_nc_cid=0&oh=064609d5574582ddd760805fc0bcd62e&oe=5A482826";
                 chooseReminder(senderId, cup1ImgUrl);
                 break;
 
             case "3-5 cups":
-                String cup2ImgUrl = "https://scontent-frt3-2.xx.fbcdn.net/v/t34.0-0/p280x280/17821593_277151852727663_561650605_n.jpg?_nc_ad=z-m&_nc_cid=0&oh=61a817f3d4f9030ab791154be7a9f8ac&oe=5A442316";
+                String cup2ImgUrl = "https://scontent-arn2-1.xx.fbcdn.net/v/t34.0-0/p280x280/17821593_277151852727663_561650605_n.jpg?_nc_ad=z-m&_nc_cid=0&oh=df46d34ed62f708ebe4e2133bfb005f3&oe=5A481796";
                 chooseReminder(senderId, cup2ImgUrl);
                 break;
 
             case "6 and more":
-                String cup3ImgUrl = "https://scontent-frt3-2.xx.fbcdn.net/v/t34.0-0/p280x280/16977125_258724977903684_188539519_n.jpg?_nc_ad=z-m&_nc_cid=0&oh=9ef9ab1b5f35d483d7691e5641613503&oe=5A43BE51";
+                String cup3ImgUrl = "https://scontent-arn2-1.xx.fbcdn.net/v/t34.0-0/p280x280/16977125_258724977903684_188539519_n.jpg?_nc_ad=z-m&_nc_cid=0&oh=b6fde18be841dee25cff10101abe87cc&oe=5A47B2D1";
                 messengerActions.sendImageMessageByURL(senderId, cup3ImgUrl);
 
                 String cup3TextMsg = "Your'e a real champ \uD83E\uDD42 8 cups is the recommended amount.";
@@ -157,7 +157,7 @@ public class EventHandlerActions {
                 break;
 
             case "i don't count":
-                String cup4ImgUrl = "https://scontent-frt3-2.xx.fbcdn.net/v/t34.0-0/p280x280/17198292_263277337448448_1721647584_n.jpg?_nc_ad=z-m&_nc_cid=0&oh=93971f19c2495a4ce9c152b1355e9921&oe=5A4433A6";
+                String cup4ImgUrl = "https://scontent-arn2-1.xx.fbcdn.net/v/t34.0-0/p280x280/17198292_263277337448448_1721647584_n.jpg?_nc_ad=z-m&_nc_cid=0&oh=064609d5574582ddd760805fc0bcd62e&oe=5A482826";
                 chooseReminder(senderId, cup4ImgUrl);
                 break;
 
