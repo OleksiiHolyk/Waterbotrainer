@@ -27,6 +27,7 @@ public class EventHandlerActions {
     private final Messenger messenger;
     private final MessengerActions messengerActions;
 
+    @Autowired
     public EventHandlerActions(Messenger messenger, MessengerActions messengerActions) {
         this.messenger = messenger;
         this.messengerActions = messengerActions;
