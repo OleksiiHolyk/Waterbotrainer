@@ -20,16 +20,11 @@ public class ScheduleServiceImpl implements ScheduleService{
     private static Logger logger = LoggerFactory.getLogger(WaterbotrainerController.class);
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    private final TaskScheduler taskScheduler;
-    private ScheduledFuture<?> scheduledFuture;
-    private final MessengerActions messengerActions;
-
     @Autowired
-    public ScheduleServiceImpl(TaskScheduler taskScheduler, ScheduledFuture<?> scheduledFuture, MessengerActions messengerActions) {
-        this.taskScheduler = taskScheduler;
-        this.scheduledFuture = scheduledFuture;
-        this.messengerActions = messengerActions;
-    }
+    TaskScheduler taskScheduler;
+    ScheduledFuture<?> scheduledFuture;
+    MessengerActions messengerActions;
+
 
     @Override
     public void start(String recipientId, String text) {

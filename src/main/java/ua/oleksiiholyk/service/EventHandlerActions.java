@@ -8,11 +8,15 @@ import com.github.messenger4j.send.message.quickreply.TextQuickReply;
 import com.github.messenger4j.userprofile.UserProfile;
 import com.github.messenger4j.webhook.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.Trigger;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * Created by Oleksii on 26.12.2017.
@@ -21,13 +25,11 @@ import java.util.List;
 public class EventHandlerActions {
     private final Messenger messenger;
     private final MessengerActions messengerActions;
-    private final ScheduleService scheduleService;
 
     @Autowired
-    public EventHandlerActions(Messenger messenger, MessengerActions messengerActions, ScheduleService scheduleService) {
+    public EventHandlerActions(Messenger messenger, MessengerActions messengerActions) {
         this.messenger = messenger;
         this.messengerActions = messengerActions;
-        this.scheduleService = scheduleService;
     }
 
 
@@ -157,7 +159,7 @@ public class EventHandlerActions {
 
             case "once a minute":
                 remindersDone(senderId);
-                scheduleService.start(senderId, "Water time!");
+                start(senderId, "Water time!");
                 break;
 
             case "stop reminders":
@@ -218,5 +220,36 @@ public class EventHandlerActions {
         } catch (MessengerApiException | MessengerIOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Autowired
+    TaskScheduler taskScheduler;
+    ScheduledFuture<?> scheduledFuture;
+
+
+    public void start(String recipientId, String text) {
+        scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger("0 * * * * *"));
+    }
+
+    public void stop() {
+        scheduledFuture.cancel(false);
+    }
+
+    private Runnable sendMessageSchedule(String recipientId, String text){
+        return () -> {
+            try {
+                messengerActions.sendTextMessage(recipientId, text);
+            } catch (MessengerApiException | MessengerIOException e) {
+                e.printStackTrace();
+            }
+
+        };
+    }
+
+    private Trigger setCronTrigger(String cronValue) {
+        return triggerContext -> {
+            CronTrigger trigger1 = new CronTrigger(cronValue);
+            return trigger1.nextExecutionTime(triggerContext);
+        };
     }
 }
