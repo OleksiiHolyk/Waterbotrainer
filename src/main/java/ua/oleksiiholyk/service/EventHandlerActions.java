@@ -7,6 +7,7 @@ import com.github.messenger4j.send.message.quickreply.QuickReply;
 import com.github.messenger4j.send.message.quickreply.TextQuickReply;
 import com.github.messenger4j.userprofile.UserProfile;
 import com.github.messenger4j.webhook.Event;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -18,8 +19,13 @@ import java.util.List;
  */
 @Service
 public class EventHandlerActions {
+    @Autowired
     Messenger messenger;
+
+    @Autowired
     MessengerActions messengerActions;
+
+    @Autowired
     ScheduleService scheduleService;
 
 
