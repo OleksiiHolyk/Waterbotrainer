@@ -7,10 +7,8 @@ import com.github.messenger4j.send.message.quickreply.QuickReply;
 import com.github.messenger4j.send.message.quickreply.TextQuickReply;
 import com.github.messenger4j.userprofile.UserProfile;
 import com.github.messenger4j.webhook.Event;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +20,7 @@ import java.util.List;
 public class EventHandlerActions {
     private final Messenger messenger;
     private final MessengerActions messengerActions;
+    ScheduleService scheduleService;
 
     public EventHandlerActions(Messenger messenger, MessengerActions messengerActions) {
         this.messenger = messenger;
@@ -154,7 +153,7 @@ public class EventHandlerActions {
 
             case "once a minute":
                 remindersDone(senderId);
-//                reminder.scheduleOnceMinute();
+                scheduleService.start(senderId, "Water time!");
                 break;
 
             case "stop reminders":
@@ -195,7 +194,7 @@ public class EventHandlerActions {
             TextQuickReply quickReplyC = TextQuickReply.create("Once a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
 
-            List<QuickReply> cupsQuickReplies = Arrays.asList(quickReplyA, quickReplyB, quickReplyC,quickReplyD);
+            List<QuickReply> cupsQuickReplies = Arrays.asList(quickReplyA, quickReplyB, quickReplyC, quickReplyD);
             messengerActions.sendTextMessageWithQuickReplies(senderId, quickReplyText, cupsQuickReplies);
         } catch (MessengerApiException | MessengerIOException e) {
             e.printStackTrace();

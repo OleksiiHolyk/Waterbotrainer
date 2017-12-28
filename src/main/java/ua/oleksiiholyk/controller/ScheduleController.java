@@ -43,25 +43,17 @@ public class ScheduleController {
 
     @Autowired
     TaskScheduler taskScheduler;
-
     ScheduledFuture<?> scheduledFuture;
 
     @RequestMapping("start")
     ResponseEntity<Void> start() {
         scheduledFuture = taskScheduler.scheduleAtFixedRate(printHour(), FIXED_RATE);
-//        new CronTrigger("*/5 * * * * MON-FRI")
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @RequestMapping("start2")
     ResponseEntity<Void> start2() {
-    scheduledFuture = taskScheduler.schedule(printHour(), new Trigger() {
-        @Override
-        public Date nextExecutionTime(TriggerContext triggerContext) {
-            CronTrigger trigger = new CronTrigger("0 * * * * *");
-            return trigger.nextExecutionTime(triggerContext);
-        }
-    });
+    scheduledFuture = taskScheduler.schedule(printHour(), setCronTrigger("0 * * * * *"));
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
@@ -76,6 +68,11 @@ public class ScheduleController {
 
     }
 
-
+    private Trigger setCronTrigger(String cronValue) {
+        return triggerContext -> {
+            CronTrigger trigger1 = new CronTrigger(cronValue);
+            return trigger1.nextExecutionTime(triggerContext);
+        };
+    }
 
 }
