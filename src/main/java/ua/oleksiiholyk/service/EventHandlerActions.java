@@ -166,6 +166,7 @@ public class EventHandlerActions {
 
             case "stop reminders":
                 remindersDone(senderId);
+                stop();
                 break;
 
             case "setfr":

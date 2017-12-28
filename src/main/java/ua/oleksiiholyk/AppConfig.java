@@ -19,8 +19,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import ua.oleksiiholyk.service.ScheduleService;
-import ua.oleksiiholyk.service.ScheduleServiceImpl;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -64,10 +62,4 @@ public class AppConfig {
         messenger.updateSettings(messengerSettings);
         return messenger;
     }
-
-    @Bean
-    ScheduleService scheduleService() {
-        return new ScheduleServiceImpl();
-    }
-
 }
