@@ -18,14 +18,11 @@ import java.util.List;
  */
 @Service
 public class EventHandlerActions {
-    private final Messenger messenger;
-    private final MessengerActions messengerActions;
+    Messenger messenger;
+    MessengerActions messengerActions;
     ScheduleService scheduleService;
 
-    public EventHandlerActions(Messenger messenger, MessengerActions messengerActions) {
-        this.messenger = messenger;
-        this.messengerActions = messengerActions;
-    }
+
 
     public void textMessageEventHandler(Event event) {
         String senderId = event.senderId();
@@ -153,7 +150,7 @@ public class EventHandlerActions {
 
             case "once a minute":
                 remindersDone(senderId);
-                scheduleService.start(senderId, "Water time!");
+//                scheduleService.start(senderId, "Water time!");
                 break;
 
             case "stop reminders":
