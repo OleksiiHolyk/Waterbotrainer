@@ -32,9 +32,9 @@ public class EventHandlerActions {
         this.messengerActions = messengerActions;
     }
 
-/*    @Autowired
+    @Autowired
     TaskScheduler taskScheduler;
-    ScheduledFuture<?> scheduledFuture;*/
+    ScheduledFuture<?> scheduledFuture;
 
     @Value("${cronValue.threeTimesDay}")
     private String threeTimesDay;
@@ -163,27 +163,31 @@ public class EventHandlerActions {
 
             case "3 times a day":
                 remindersDone(senderId);
-//                start(senderId, "Water time!", threeTimesDay);
+                stop();
+                start(senderId, "Water time!", threeTimesDay);
                 break;
 
             case "twice a day":
                 remindersDone(senderId);
-//                start(senderId, "Water time!", twiceDay);
+                stop();
+                start(senderId, "Water time!", twiceDay);
                 break;
 
             case "once a day":
                 remindersDone(senderId);
-//                start(senderId, "Water time!", onceDay);
+                stop();
+                start(senderId, "Water time!", onceDay);
                 break;
 
             case "once a minute":
                 remindersDone(senderId);
-//                start(senderId, "Water time!", onceMinute);
+                stop();
+                start(senderId, "Water time!", onceMinute);
                 break;
 
             case "stop reminders":
                 remindersDone(senderId);
-//                stop();
+                stop();
                 break;
 
             case "setfr":
@@ -245,7 +249,7 @@ public class EventHandlerActions {
 
 
 
-    /*private void start(String recipientId, String text, String cronValue) {
+    private void start(String recipientId, String text, String cronValue) {
         scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger(cronValue));
     }
 
@@ -268,5 +272,5 @@ public class EventHandlerActions {
             CronTrigger trigger1 = new CronTrigger(cronValue);
             return trigger1.nextExecutionTime(triggerContext);
         };
-    }*/
+    }
 }
