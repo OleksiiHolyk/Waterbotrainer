@@ -76,8 +76,10 @@ public class EventHandlerActions {
                 TextQuickReply changeFrQuickReplyB = TextQuickReply.create("Twice a day", "<POSTBACK_PAYLOAD>");
                 TextQuickReply changeFrQuickReplyC = TextQuickReply.create("Once a day", "<POSTBACK_PAYLOAD>");
                 TextQuickReply changeFrQuickReplyD = TextQuickReply.create("Stop Reminders", "<POSTBACK_PAYLOAD>");
+                TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
 
-                List<QuickReply> cupsQuickReplies = Arrays.asList(changeFrQuickReplyA, changeFrQuickReplyB, changeFrQuickReplyC, changeFrQuickReplyD);
+
+                List<QuickReply> cupsQuickReplies = Arrays.asList(changeFrQuickReplyA, changeFrQuickReplyB, changeFrQuickReplyC, changeFrQuickReplyD,quickReplyD);
                 messengerActions.sendTextMessageWithQuickReplies(senderId, changeFrQuickReplyDuickReplyText, cupsQuickReplies);
                 break;
             default:
