@@ -28,12 +28,6 @@ public class ScheduleService {
 
     MessengerActions messengerActions;
 
-    @Autowired
-    public ScheduleService(TaskScheduler taskScheduler) {
-        this.taskScheduler = taskScheduler;
-    }
-
-
     void start(String recipientId, String text) {
         scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger("0 * * * * *"));
     }
