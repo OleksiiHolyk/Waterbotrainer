@@ -162,23 +162,23 @@ public class EventHandlerActions {
                 break;
 
             case "3 times a day":
-                start(senderId, "Water time!", threeTimesDay);
                 remindersDone(senderId);
+                start(senderId, "Water time!", threeTimesDay);
                 break;
 
             case "twice a day":
-                start(senderId, "Water time!", twiceDay);
                 remindersDone(senderId);
+                start(senderId, "Water time!", twiceDay);
                 break;
 
             case "once a day":
-                start(senderId, "Water time!", onceDay);
                 remindersDone(senderId);
+                start(senderId, "Water time!", onceDay);
                 break;
 
             case "once a minute":
-                start(senderId, "Water time!", onceMinute);
                 remindersDone(senderId);
+                start(senderId, "Water time!", onceMinute);
                 break;
 
             case "stop reminders":
