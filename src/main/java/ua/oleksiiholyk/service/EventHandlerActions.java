@@ -27,7 +27,6 @@ public class EventHandlerActions {
     private final Messenger messenger;
     private final MessengerActions messengerActions;
 
-    @Autowired
     public EventHandlerActions(Messenger messenger, MessengerActions messengerActions) {
         this.messenger = messenger;
         this.messengerActions = messengerActions;
@@ -95,7 +94,7 @@ public class EventHandlerActions {
                 TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
 
 
-                List<QuickReply> cupsQuickReplies = Arrays.asList(changeFrQuickReplyA, changeFrQuickReplyB, changeFrQuickReplyC, changeFrQuickReplyD,quickReplyD);
+                List<QuickReply> cupsQuickReplies = Arrays.asList(changeFrQuickReplyA, changeFrQuickReplyB, changeFrQuickReplyC, changeFrQuickReplyD, quickReplyD);
                 messengerActions.sendTextMessageWithQuickReplies(senderId, changeFrQuickReplyDuickReplyText, cupsQuickReplies);
                 break;
             default:
@@ -163,37 +162,28 @@ public class EventHandlerActions {
                 break;
 
             case "3 times a day":
-//                remindersDone(senderId);
-                stop();
                 start(senderId, "Water time!", threeTimesDay);
-                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
+                remindersDone(senderId);
                 break;
 
             case "twice a day":
-//                remindersDone(senderId);
-                stop();
                 start(senderId, "Water time!", twiceDay);
-                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
+                remindersDone(senderId);
                 break;
 
             case "once a day":
-//                remindersDone(senderId);
-                stop();
                 start(senderId, "Water time!", onceDay);
-                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
+                remindersDone(senderId);
                 break;
 
             case "once a minute":
-//                remindersDone(senderId);
-                stop();
                 start(senderId, "Water time!", onceMinute);
-                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
+                remindersDone(senderId);
                 break;
 
             case "stop reminders":
-//                remindersDone(senderId);
+                remindersDone(senderId);
                 stop();
-                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
                 break;
 
             case "setfr":
@@ -253,8 +243,6 @@ public class EventHandlerActions {
     }
 
 
-
-
     private void start(String recipientId, String text, String cronValue) {
         scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger(cronValue));
     }
@@ -263,7 +251,7 @@ public class EventHandlerActions {
         scheduledFuture.cancel(false);
     }
 
-    private Runnable sendMessageSchedule(String recipientId, String text){
+    private Runnable sendMessageSchedule(String recipientId, String text) {
         return () -> {
             try {
                 messengerActions.sendTextMessage(recipientId, text);
