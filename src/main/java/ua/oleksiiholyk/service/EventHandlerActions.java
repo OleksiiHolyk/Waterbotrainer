@@ -8,6 +8,7 @@ import com.github.messenger4j.send.message.quickreply.TextQuickReply;
 import com.github.messenger4j.userprofile.UserProfile;
 import com.github.messenger4j.webhook.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.support.CronTrigger;
@@ -26,12 +27,26 @@ public class EventHandlerActions {
     private final Messenger messenger;
     private final MessengerActions messengerActions;
 
-    @Autowired
     public EventHandlerActions(Messenger messenger, MessengerActions messengerActions) {
         this.messenger = messenger;
         this.messengerActions = messengerActions;
     }
 
+    @Autowired
+    TaskScheduler taskScheduler;
+    ScheduledFuture<?> scheduledFuture;
+
+    @Value("${cronValue.threeTimesDay}")
+    private String threeTimesDay;
+
+    @Value("${cronValue.twiceDay}")
+    private String twiceDay;
+
+    @Value("${cronValue.onceDay}")
+    private String onceDay;
+
+    @Value("${cronValue.onceMinute}")
+    private String onceMinute;
 
     public void textMessageEventHandler(Event event) {
         String senderId = event.senderId();
@@ -92,7 +107,6 @@ public class EventHandlerActions {
         String senderId = event.senderId();
         UserProfile userProfile = messenger.queryUserProfile(senderId);
 
-
         switch (messageText.toLowerCase()) {
             case "quick reply":
                 break;
@@ -148,20 +162,23 @@ public class EventHandlerActions {
                 break;
 
             case "3 times a day":
+                start(senderId, "Water time!", threeTimesDay);
                 remindersDone(senderId);
                 break;
 
             case "twice a day":
+                start(senderId, "Water time!", twiceDay);
                 remindersDone(senderId);
                 break;
 
             case "once a day":
+                start(senderId, "Water time!", onceDay);
                 remindersDone(senderId);
                 break;
 
             case "once a minute":
+                start(senderId, "Water time!", onceMinute);
                 remindersDone(senderId);
-                start(senderId, "Water time!");
                 break;
 
             case "stop reminders":
@@ -225,16 +242,14 @@ public class EventHandlerActions {
         }
     }
 
-    @Autowired
-    TaskScheduler taskScheduler;
-    ScheduledFuture<?> scheduledFuture;
 
 
-    public void start(String recipientId, String text) {
-        scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger("0 * * * * *"));
+
+    private void start(String recipientId, String text, String cronValue) {
+        scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger(cronValue));
     }
 
-    public void stop() {
+    private void stop() {
         scheduledFuture.cancel(false);
     }
 
@@ -245,7 +260,6 @@ public class EventHandlerActions {
             } catch (MessengerApiException | MessengerIOException e) {
                 e.printStackTrace();
             }
-
         };
     }
 
