@@ -163,26 +163,26 @@ public class EventHandlerActions {
 
             case "3 times a day":
                 start(senderId, "Water time!", threeTimesDay);
-                remindersDone(senderId);
+                changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
             case "twice a day":
                 start(senderId, "Water time!", twiceDay);
-                remindersDone(senderId);
+                changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
             case "once a day":
                 start(senderId, "Water time!", onceDay);
-                remindersDone(senderId);
+                changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
             case "once a minute":
                 start(senderId, "Water time!", onceMinute);
-                remindersDone(senderId);
+                changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
             case "stop reminders":
-                remindersDone(senderId);
+                changeReminderFrequency(senderId, userProfile.firstName());
                 stop();
                 break;
 
@@ -242,6 +242,17 @@ public class EventHandlerActions {
         }
     }
 
+    private void changeReminderFrequency(String senderId, String userName) {
+//        Oleksii new frequency was set succesfuly \uD83D\uDE42 thanks
+        try {
+            String msg = userName + " new frequency was set succesfuly \uD83D\uDE42 thanks";
+            messengerActions.sendTextMessage(senderId, msg);
+        } catch (MessengerApiException | MessengerIOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     private void start(String recipientId, String text, String cronValue) {
         scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger(cronValue));
