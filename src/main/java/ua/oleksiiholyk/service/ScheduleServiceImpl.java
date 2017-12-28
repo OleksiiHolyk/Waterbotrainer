@@ -10,7 +10,6 @@ import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.support.CronTrigger;
 import ua.oleksiiholyk.controller.WaterbotrainerController;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ScheduledFuture;
 
@@ -21,12 +20,16 @@ public class ScheduleServiceImpl implements ScheduleService{
     private static Logger logger = LoggerFactory.getLogger(WaterbotrainerController.class);
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
+    private final TaskScheduler taskScheduler;
+    private ScheduledFuture<?> scheduledFuture;
+    private final MessengerActions messengerActions;
+
     @Autowired
-    TaskScheduler taskScheduler;
-
-    ScheduledFuture<?> scheduledFuture;
-
-    MessengerActions messengerActions;
+    public ScheduleServiceImpl(TaskScheduler taskScheduler, ScheduledFuture<?> scheduledFuture, MessengerActions messengerActions) {
+        this.taskScheduler = taskScheduler;
+        this.scheduledFuture = scheduledFuture;
+        this.messengerActions = messengerActions;
+    }
 
     @Override
     public void start(String recipientId, String text) {
@@ -37,13 +40,14 @@ public class ScheduleServiceImpl implements ScheduleService{
         scheduledFuture.cancel(false);
     }
 
-    private Runnable sendMessageSchedule(String recipientId, String text) {
+    private Runnable sendMessageSchedule(String recipientId, String text){
         return () -> {
             try {
                 messengerActions.sendTextMessage(recipientId, text);
             } catch (MessengerApiException | MessengerIOException e) {
                 e.printStackTrace();
             }
+
         };
     }
 
