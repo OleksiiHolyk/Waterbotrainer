@@ -162,32 +162,37 @@ public class EventHandlerActions {
                 break;
 
             case "3 times a day":
-                remindersDone(senderId);
+//                remindersDone(senderId);
                 stop();
                 start(senderId, "Water time!", threeTimesDay);
+                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
                 break;
 
             case "twice a day":
-                remindersDone(senderId);
+//                remindersDone(senderId);
                 stop();
                 start(senderId, "Water time!", twiceDay);
+                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
                 break;
 
             case "once a day":
-                remindersDone(senderId);
+//                remindersDone(senderId);
                 stop();
                 start(senderId, "Water time!", onceDay);
+                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
                 break;
 
             case "once a minute":
-                remindersDone(senderId);
+//                remindersDone(senderId);
                 stop();
                 start(senderId, "Water time!", onceMinute);
+                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
                 break;
 
             case "stop reminders":
-                remindersDone(senderId);
+//                remindersDone(senderId);
                 stop();
+                messengerActions.sendTextMessage(senderId,"new frequency was set succesfuly");
                 break;
 
             case "setfr":
