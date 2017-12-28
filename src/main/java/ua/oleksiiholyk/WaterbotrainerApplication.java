@@ -26,7 +26,6 @@ import java.util.Arrays;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
-@Import({SchedulerConfig.class})
 @SpringBootApplication
 public class WaterbotrainerApplication {
 
