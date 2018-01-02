@@ -34,9 +34,26 @@ import static java.util.Optional.of;
 @ComponentScan
 @EnableAutoConfiguration
 public class AppConfig {
-    @Bean
-    TaskScheduler threadPoolTaskScheduler() {
+/*    @Bean
+    public TaskScheduler threadPoolTaskScheduler() {
         return new ThreadPoolTaskScheduler();
+    }*/
+
+    /*@Bean
+    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
+        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
+        threadPoolTaskScheduler.setPoolSize(1);
+        threadPoolTaskScheduler.setThreadNamePrefix("ThreadPoolTaskScheduler");
+        return threadPoolTaskScheduler;
+    }*/
+
+    @Bean
+    public TaskScheduler taskScheduler() {
+        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setPoolSize(10);
+        scheduler.setWaitForTasksToCompleteOnShutdown(true);
+        scheduler.setAwaitTerminationSeconds(20);
+        return scheduler;
     }
 
     @Bean

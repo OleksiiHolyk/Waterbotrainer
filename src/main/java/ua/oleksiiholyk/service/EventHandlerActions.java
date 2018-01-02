@@ -34,10 +34,6 @@ public class EventHandlerActions {
         this.messengerActions = messengerActions;
     }
 
-    @Autowired
-    TaskScheduler taskScheduler;
-    ScheduledFuture<?> scheduledFuture;
-
     @Value("${cronValue.threeTimesDay}")
     private String threeTimesDay;
 
@@ -49,6 +45,10 @@ public class EventHandlerActions {
 
     @Value("${cronValue.onceMinute}")
     private String onceMinute;
+
+    @Value("${cronValue.onceTenSec}")
+    private String once10Sec;
+
 
     public void textMessageEventHandler(Event event) {
         String senderId = event.senderId();
@@ -94,9 +94,10 @@ public class EventHandlerActions {
                 TextQuickReply changeFrQuickReplyC = TextQuickReply.create("Once a day", "<POSTBACK_PAYLOAD>");
                 TextQuickReply changeFrQuickReplyD = TextQuickReply.create("Stop Reminders", "<POSTBACK_PAYLOAD>");
                 TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
+                TextQuickReply quickReplyE = TextQuickReply.create("Once in ten sec", "<POSTBACK_PAYLOAD>");
 
 
-                List<QuickReply> cupsQuickReplies = Arrays.asList(changeFrQuickReplyA, changeFrQuickReplyB, changeFrQuickReplyC, changeFrQuickReplyD, quickReplyD);
+                List<QuickReply> cupsQuickReplies = Arrays.asList(changeFrQuickReplyA, changeFrQuickReplyB, changeFrQuickReplyC, changeFrQuickReplyD, quickReplyD, quickReplyE);
                 messengerActions.sendTextMessageWithQuickReplies(senderId, changeFrQuickReplyDuickReplyText, cupsQuickReplies);
                 break;
             default:
@@ -183,6 +184,11 @@ public class EventHandlerActions {
                 changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
+            case "once in ten sec":
+                start(senderId, "Water time!", onceMinute);
+                changeReminderFrequency(senderId, userProfile.firstName());
+                break;
+
             case "stop reminders":
                 changeReminderFrequency(senderId, userProfile.firstName());
                 stop();
@@ -221,8 +227,9 @@ public class EventHandlerActions {
             TextQuickReply quickReplyB = TextQuickReply.create("Twice a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyC = TextQuickReply.create("Once a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
+            TextQuickReply quickReplyE = TextQuickReply.create("Once in ten sec", "<POSTBACK_PAYLOAD>");
 
-            List<QuickReply> cupsQuickReplies = Arrays.asList(quickReplyA, quickReplyB, quickReplyC, quickReplyD);
+            List<QuickReply> cupsQuickReplies = Arrays.asList(quickReplyA, quickReplyB, quickReplyC, quickReplyD, quickReplyE);
             messengerActions.sendTextMessageWithQuickReplies(senderId, quickReplyText, cupsQuickReplies);
         } catch (MessengerApiException | MessengerIOException e) {
             e.printStackTrace();
@@ -256,7 +263,7 @@ public class EventHandlerActions {
 
     }
 
-    private void start(String recipientId, String text, String cronValue) {
+   /* private void start(String recipientId, String text, String cronValue) {
         scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger(cronValue));
     }
 
@@ -279,5 +286,44 @@ public class EventHandlerActions {
             CronTrigger trigger1 = new CronTrigger(cronValue);
             return trigger1.nextExecutionTime(triggerContext);
         };
+    }*/
+
+    @Autowired
+    private ThreadPoolTaskScheduler taskScheduler;
+
+    private void start(String recipientId, String text, String cronValue) {
+        taskScheduler.initialize();
+        taskScheduler.schedule(new RunnableTask(recipientId, text), setCronTrigger(cronValue));
+    }
+
+    private void stop() {
+        taskScheduler.shutdown();
+    }
+
+    private Trigger setCronTrigger(String cronValue) {
+        return triggerContext -> {
+            CronTrigger trigger1 = new CronTrigger(cronValue);
+            return trigger1.nextExecutionTime(triggerContext);
+        };
+    }
+
+
+    class RunnableTask implements Runnable {
+        private String recipientId;
+        private String text;
+
+        RunnableTask(String recipientId, String text) {
+            this.recipientId = recipientId;
+            this.text = text;
+        }
+
+        @Override
+        public void run() {
+            try {
+                messengerActions.sendTextMessage(recipientId, text);
+            } catch (MessengerApiException | MessengerIOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
