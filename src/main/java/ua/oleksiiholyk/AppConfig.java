@@ -30,15 +30,14 @@ import static java.util.Optional.of;
 /**
  * Created by Oleksii on 28.12.2017.
  */
-
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
 public class AppConfig {
-    /*@Bean
+    @Bean
     TaskScheduler threadPoolTaskScheduler() {
         return new ThreadPoolTaskScheduler();
-    }*/
+    }
 
     @Bean
     public Messenger messenger(
@@ -61,13 +60,5 @@ public class AppConfig {
         messenger = Messenger.create(pageAccessToken, appSecret, verifyToken);
         messenger.updateSettings(messengerSettings);
         return messenger;
-    }
-
-    @Bean
-    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
-        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
-        threadPoolTaskScheduler.setPoolSize(1);
-        threadPoolTaskScheduler.setThreadNamePrefix("ThreadPoolTaskScheduler");
-        return threadPoolTaskScheduler;
     }
 }
