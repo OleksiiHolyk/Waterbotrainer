@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.Trigger;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,9 @@ public class EventHandlerActions {
         this.messengerActions = messengerActions;
     }
 
-    @Autowired
+/*    @Autowired
     TaskScheduler taskScheduler;
-    ScheduledFuture<?> scheduledFuture;
+    ScheduledFuture<?> scheduledFuture;*/
 
     @Value("${cronValue.threeTimesDay}")
     private String threeTimesDay;
@@ -254,12 +255,41 @@ public class EventHandlerActions {
 
     }
 
-    private void start(String recipientId, String text, String cronValue) {
-        scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger(cronValue));
+//    private void start(String recipientId, String text, String cronValue) {
+//        scheduledFuture = taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger(cronValue));
+//    }
+
+/*    private void stop() {
+        scheduledFuture.cancel(false);
+    }*/
+
+    /*private Runnable sendMessageSchedule(String recipientId, String text) {
+        return () -> {
+            try {
+                messengerActions.sendTextMessage(recipientId, text);
+            } catch (MessengerApiException | MessengerIOException e) {
+                e.printStackTrace();
+            }
+        };
+    }
+
+    private Trigger setCronTrigger(String cronValue) {
+        return triggerContext -> {
+            CronTrigger trigger1 = new CronTrigger(cronValue);
+            return trigger1.nextExecutionTime(triggerContext);
+        };
+    }*/
+
+    @Autowired
+    private ThreadPoolTaskScheduler taskScheduler;
+
+    private void start(String recipientId, String text, String cronValue){
+        taskScheduler.initialize();
+        taskScheduler.schedule(sendMessageSchedule(recipientId, text), setCronTrigger(cronValue));
     }
 
     private void stop() {
-        scheduledFuture.cancel(false);
+        taskScheduler.shutdown();
     }
 
     private Runnable sendMessageSchedule(String recipientId, String text) {
