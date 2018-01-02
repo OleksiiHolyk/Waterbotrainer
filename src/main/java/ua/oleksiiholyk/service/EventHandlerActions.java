@@ -9,7 +9,6 @@ import com.github.messenger4j.userprofile.UserProfile;
 import com.github.messenger4j.webhook.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
@@ -17,9 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ScheduledFuture;
 
 /**
  * Created by Oleksii on 26.12.2017.
@@ -185,7 +182,7 @@ public class EventHandlerActions {
                 break;
 
             case "once in ten sec":
-                start(senderId, "Water time!", onceMinute);
+                start(senderId, "Water time!", once10Sec);
                 changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
