@@ -50,7 +50,7 @@ public class EventHandlerActions {
     @Value("${cronValue.onceMinute}")
     private String onceMinute;
 
-    @Value("${cronValue.once10Sec}")
+    @Value("${cronValue.onceTenSec}")
     private String once10Sec;
 
     public void textMessageEventHandler(Event event) {
