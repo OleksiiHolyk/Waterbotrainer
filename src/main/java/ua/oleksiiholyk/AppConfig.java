@@ -52,7 +52,7 @@ public class AppConfig {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(3);
         scheduler.setWaitForTasksToCompleteOnShutdown(true);
-        scheduler.setAwaitTerminationSeconds(20);
+        scheduler.setAwaitTerminationSeconds(5);
         return scheduler;
     }
 
