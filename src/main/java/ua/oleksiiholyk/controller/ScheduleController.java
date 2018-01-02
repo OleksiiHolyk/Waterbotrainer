@@ -51,12 +51,6 @@ public class ScheduleController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @RequestMapping("start2")
-    ResponseEntity<Void> start2() {
-    scheduledFuture = taskScheduler.schedule(printHour(), setCronTrigger("0 * * * * *"));
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
-
     @RequestMapping("stop")
     ResponseEntity<Void> stop() {
         scheduledFuture.cancel(false);
