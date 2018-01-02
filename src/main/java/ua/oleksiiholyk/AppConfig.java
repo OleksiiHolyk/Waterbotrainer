@@ -34,27 +34,28 @@ import static java.util.Optional.of;
 @ComponentScan
 @EnableAutoConfiguration
 public class AppConfig {
-/*    @Bean
-    public TaskScheduler threadPoolTaskScheduler() {
+    @Bean
+    public TaskScheduler taskScheduler() {
         return new ThreadPoolTaskScheduler();
-    }*/
-
-    /*@Bean
-    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
-        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
-        threadPoolTaskScheduler.setPoolSize(1);
-        threadPoolTaskScheduler.setThreadNamePrefix("ThreadPoolTaskScheduler");
-        return threadPoolTaskScheduler;
-    }*/
+    }
 
     @Bean
+    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
+        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
+        threadPoolTaskScheduler.setPoolSize(3);
+        threadPoolTaskScheduler.setWaitForTasksToCompleteOnShutdown(true);
+        threadPoolTaskScheduler.setAwaitTerminationSeconds(5);
+        return threadPoolTaskScheduler;
+    }
+
+    /*@Bean
     public TaskScheduler taskScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(3);
         scheduler.setWaitForTasksToCompleteOnShutdown(true);
         scheduler.setAwaitTerminationSeconds(5);
         return scheduler;
-    }
+    }*/
 
     @Bean
     public Messenger messenger(
