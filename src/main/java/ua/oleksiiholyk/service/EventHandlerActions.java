@@ -95,6 +95,7 @@ public class EventHandlerActions {
                 TextQuickReply changeFrQuickReplyD = TextQuickReply.create("Stop Reminders", "<POSTBACK_PAYLOAD>");
                 TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
                 TextQuickReply quickReplyE = TextQuickReply.create("Once in 30 sec", "<POSTBACK_PAYLOAD>");
+                TextQuickReply quickReplyF = TextQuickReply.create("Once in 25 min", "<POSTBACK_PAYLOAD>");
 
 
                 List<QuickReply> cupsQuickReplies = Arrays.asList(changeFrQuickReplyA, changeFrQuickReplyB, changeFrQuickReplyC, changeFrQuickReplyD, quickReplyD, quickReplyE);
@@ -189,6 +190,12 @@ public class EventHandlerActions {
                 changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
+            case "once in 25 min":
+                start(senderId, "Water time!", once25Min);
+                changeReminderFrequency(senderId, userProfile.firstName());
+                break;
+
+
             case "stop reminders":
                 changeReminderFrequency(senderId, userProfile.firstName());
                 stop();
@@ -228,8 +235,9 @@ public class EventHandlerActions {
             TextQuickReply quickReplyC = TextQuickReply.create("Once a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyE = TextQuickReply.create("Once in 30 sec", "<POSTBACK_PAYLOAD>");
+            TextQuickReply quickReplyF = TextQuickReply.create("Once in 25 min", "<POSTBACK_PAYLOAD>");
 
-            List<QuickReply> cupsQuickReplies = Arrays.asList(quickReplyA, quickReplyB, quickReplyC, quickReplyD, quickReplyE);
+            List<QuickReply> cupsQuickReplies = Arrays.asList(quickReplyA, quickReplyB, quickReplyC, quickReplyD, quickReplyE, quickReplyF);
             messengerActions.sendTextMessageWithQuickReplies(senderId, quickReplyText, cupsQuickReplies);
         } catch (MessengerApiException | MessengerIOException e) {
             e.printStackTrace();
