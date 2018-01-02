@@ -186,8 +186,8 @@ public class EventHandlerActions {
                 changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
-            case "once in 10 sec":
-                start(senderId, "Water time!", onceMinute);
+            case "once in ten sec":
+                start(senderId, "Water time!", once10Sec);
                 changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
@@ -229,7 +229,7 @@ public class EventHandlerActions {
             TextQuickReply quickReplyB = TextQuickReply.create("Twice a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyC = TextQuickReply.create("Once a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
-            TextQuickReply quickReplyE = TextQuickReply.create("Once in 10 sec", "<POSTBACK_PAYLOAD>");
+            TextQuickReply quickReplyE = TextQuickReply.create("Once in ten sec", "<POSTBACK_PAYLOAD>");
 
             List<QuickReply> cupsQuickReplies = Arrays.asList(quickReplyA, quickReplyB, quickReplyC, quickReplyD, quickReplyE);
             messengerActions.sendTextMessageWithQuickReplies(senderId, quickReplyText, cupsQuickReplies);
