@@ -43,8 +43,11 @@ public class EventHandlerActions {
     @Value("${cronValue.onceMinute}")
     private String onceMinute;
 
-    @Value("${cronValue.onceTenSec}")
-    private String once10Sec;
+    @Value("${cronValue.once30Sec}")
+    private String once30Sec;
+
+    @Value("${cronValue.once25Min}")
+    private String once25Min;
 
 
     public void textMessageEventHandler(Event event) {
@@ -91,7 +94,7 @@ public class EventHandlerActions {
                 TextQuickReply changeFrQuickReplyC = TextQuickReply.create("Once a day", "<POSTBACK_PAYLOAD>");
                 TextQuickReply changeFrQuickReplyD = TextQuickReply.create("Stop Reminders", "<POSTBACK_PAYLOAD>");
                 TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
-                TextQuickReply quickReplyE = TextQuickReply.create("Once in ten sec", "<POSTBACK_PAYLOAD>");
+                TextQuickReply quickReplyE = TextQuickReply.create("Once in 30 sec", "<POSTBACK_PAYLOAD>");
 
 
                 List<QuickReply> cupsQuickReplies = Arrays.asList(changeFrQuickReplyA, changeFrQuickReplyB, changeFrQuickReplyC, changeFrQuickReplyD, quickReplyD, quickReplyE);
@@ -181,8 +184,8 @@ public class EventHandlerActions {
                 changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
-            case "once in ten sec":
-                start(senderId, "Water time!", once10Sec);
+            case "once in 30 sec":
+                start(senderId, "Water time!", once30Sec);
                 changeReminderFrequency(senderId, userProfile.firstName());
                 break;
 
@@ -224,7 +227,7 @@ public class EventHandlerActions {
             TextQuickReply quickReplyB = TextQuickReply.create("Twice a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyC = TextQuickReply.create("Once a day", "<POSTBACK_PAYLOAD>");
             TextQuickReply quickReplyD = TextQuickReply.create("Once a minute", "<POSTBACK_PAYLOAD>");
-            TextQuickReply quickReplyE = TextQuickReply.create("Once in ten sec", "<POSTBACK_PAYLOAD>");
+            TextQuickReply quickReplyE = TextQuickReply.create("Once in 30 sec", "<POSTBACK_PAYLOAD>");
 
             List<QuickReply> cupsQuickReplies = Arrays.asList(quickReplyA, quickReplyB, quickReplyC, quickReplyD, quickReplyE);
             messengerActions.sendTextMessageWithQuickReplies(senderId, quickReplyText, cupsQuickReplies);
